@@ -49,6 +49,11 @@ angular.module('angular-storage.internalStore', ['angular-storage.storage'])
       storage.remove(this.getNamespacedKey(name));
     };
 
+    InternalStore.prototype.reset = function() {
+      this.inMemoryCache = {};
+      storage.reset();
+    };
+    
     return InternalStore;
 
 

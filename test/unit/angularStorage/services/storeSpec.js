@@ -67,6 +67,23 @@ describe('angularStorage store', function() {
     expect(store.get('gonto')).to.eql(value);
     expect(store.get('gonto')).not.to.equal(value);
   }));
+    
+  it('should remove all objects correctly', inject(function(store) {
+   
+    var value1 = {
+      gonto: 'hola'
+
+    };
+    var value2 = {
+      pronto: 'hola',
+    };      
+    store.set('gonto', value1);
+    store.set('pronto', value2);
+    store.reset();      
+    expect(store.get('gonto')).to.not.exist;
+    expect(store.get('pronto')).to.not.exist;
+  }));    
+    
 
 });
 describe('angularStorage store: cookie fallback', function() {
@@ -161,6 +178,23 @@ describe('angularStorage store: cookie fallback', function() {
       
   }));
     
+  it('should remove all objects correctly', inject(function(store) {
+    var value1 = {
+      gonto: 'hola'
+
+    };
+    var value2 = {
+      pronto: 'hola',
+    };      
+    store.set('gonto', value1);
+    store.set('pronto', value2);
+
+    store.reset();      
+    expect(store.get('gonto')).to.not.exist;
+    expect(store.get('pronto')).to.not.exist;
+    expect($cookieStore.get('gonto')).to.not.exist;   
+    expect($cookieStore.get('pronto')).to.not.exist;   
+  }));        
     
 });
 
@@ -227,6 +261,21 @@ describe('angularStorage new namespaced store', function() {
     expect(newStore.get('gonto')).to.eql(value);
     expect(newStore.get('gonto')).not.to.equal(value);
   });
+    
+  it('should remove all objects correctly', inject(function(store) {
+    var value1 = {
+      gonto: 'hola'
+
+    };
+    var value2 = {
+      pronto: 'hola',
+    };      
+    newStore.set('gonto', value1);
+    newStore.set('pronto', value2);
+    newStore.reset();
+    expect(newStore.get('gonto')).to.not.exist;
+    expect(newStore.get('pronto')).to.not.exist;
+  }));     
 
 });
 

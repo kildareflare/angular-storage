@@ -10,8 +10,14 @@ angular.module('angular-storage.storage', [])
       this.remove = function(what) {
         return $window.localStorage.removeItem(what);
       };
-    } else {
+      this.reset = function () {
+        return $window.localStorage.clear();
+      };        
+    } 
+    else {
+      var $cookies = $injector.get('$cookies');
       var $cookieStore = $injector.get('$cookieStore');
+        
       this.set = function(what, value) {
         return $cookieStore.put(what, value);
       };
@@ -21,6 +27,11 @@ angular.module('angular-storage.storage', [])
       this.remove = function(what) {
         return $cookieStore.remove(what);
       };
+      this.reset = function () {
+        angular.forEach($cookies, function (v, k) {
+            $cookieStore.remove(k);
+        });         
+      };       
     }
   });
 
